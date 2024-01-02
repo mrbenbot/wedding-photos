@@ -1,25 +1,38 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
 
-function App() {
+const UploadAndDisplayImage = () => {
+  const [selectedImage, setSelectedImage] = useState(null);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h1>Ben & Katie's Photo Booth</h1>
+
+      {selectedImage && (
+        <div>
+          <img
+            alt="not found"
+            width={"250px"}
+            src={URL.createObjectURL(selectedImage)}
+          />
+          <br />
+        </div>
+      )}
+
+      <br />
+      <br />
+
+      <input
+        type="file"
+        name="myImage"
+        accept="image/*"
+        onChange={(event) => {
+          console.log(event.target.files[0]);
+          setSelectedImage(event.target.files[0]);
+        }}
+      />
+      <button disabled={!selectedImage}>Upload</button>
     </div>
   );
-}
+};
 
-export default App;
+export default UploadAndDisplayImage;
